@@ -1,36 +1,41 @@
+<!--
+ *  Copyright (c) 2014 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree.
+-->
+
+<!--
+`user-media-permission` asks the user permission to access the media devices
+such as camera and microphone and provides the permission result as an attribute
+that can be used to style. Additionally it provides CSS-classes that can be
+used in its content to control visibility. (.gum-allowed, .gum-denied).
+
+Permission states are allowed/denied/unknown.
+
+E.g.:
+
+<user-media-permission audio video>
+  Record a media message to your future self!
+  <p class="gum-allowed">Recording...</p>
+  <p class="gum-denied">Can't record a message with no permission.</p>
+</user-media-permission>
+
+-->
 <link rel="import" href="../../bower_components/core-selector/core-selector.html">
-<polymer-element name="user-media-permission">
+<polymer-element name="user-media-permission" permission="unknown">
   <template>
     <style>
-      polyfill-next-selector { content: ':host(:[permission="unknownaaa"])'; }
-      ::content > .unknown {
-        background-color: green;
-        display: block;
+      :host([permission=allowed]) ::content > .gum-denied,
+      :host([permission=allowed]) ::content > .gum-unknown,
+      :host([permission=denied]) ::content > .gum-allowed,
+      :host([permission=denied]) ::content > .gum-unknown,
+      :host([permission=unknown]) ::content > .gum-allowed,
+      :host([permission=unknown]) ::content > .gum-denied {
+        visibility: hidden;
       }
-
-      /*
-      polyfill-next-selector { content: ':host([permission="ok"]) > *'; }
-      ::content {
-        background-color: green;
-        display: block;
-      }
-
-      polyfill-next-selector { content: ':host([permission="denied"]) > *'; }
-      ::content >  .denied {
-        background-color: blue;
-        display: block;
-      }
-      */
-      /*
-      polyfill-next-selector { content: ':host[permission="denied"] > *'; }
-      *//*
-      :host[permission="denied"] > .denied {
-        visibility: visible;
-        z-index: auto;
-      }
-      */
     </style>
-    <em>UserMediaPermission state: {{permission}}</em>
     <content></content>
   </template>
   <script>
@@ -38,13 +43,11 @@
     Polymer({
       publish: {
         permission: {
-          value: 'unknown',
           reflect: true
         },
       },
 
       created: function () {
-        console.log("Created instance of user-media-permission.");
         this.tryGetUserMedia(0);
       },
 
@@ -59,13 +62,11 @@
       },
 
       getUserMediaSuccess: function () {
-        console.log("success");
-        this.permission = 'success';
+        this.setAttribute('permission', 'allowed');
       },
 
       getUserMediaFail: function () {
-        console.log("onfail");
-        this.permission = 'denied';
+        this.setAttribute('permission', 'denied');
         this.tryGetUserMedia(1000);
       }
     });

@@ -1,5 +1,5 @@
 application: test-rtc
-version: 1
+version: 1b
 runtime: python27
 threadsafe: true
 api_version: 1
@@ -16,6 +16,9 @@ handlers:
 
 - url: /css
   static_dir: css
+
+- url: /components
+  static_dir: components
 
 - url: /bower_components
   static_dir: bower_components

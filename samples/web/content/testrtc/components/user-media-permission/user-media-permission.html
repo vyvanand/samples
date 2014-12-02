@@ -1,0 +1,74 @@
+<link rel="import" href="../../bower_components/core-selector/core-selector.html">
+<polymer-element name="user-media-permission">
+  <template>
+    <style>
+      polyfill-next-selector { content: ':host(:[permission="unknownaaa"])'; }
+      ::content > .unknown {
+        background-color: green;
+        display: block;
+      }
+
+      /*
+      polyfill-next-selector { content: ':host([permission="ok"]) > *'; }
+      ::content {
+        background-color: green;
+        display: block;
+      }
+
+      polyfill-next-selector { content: ':host([permission="denied"]) > *'; }
+      ::content >  .denied {
+        background-color: blue;
+        display: block;
+      }
+      */
+      /*
+      polyfill-next-selector { content: ':host[permission="denied"] > *'; }
+      *//*
+      :host[permission="denied"] > .denied {
+        visibility: visible;
+        z-index: auto;
+      }
+      */
+    </style>
+    <em>UserMediaPermission state: {{permission}}</em>
+    <content></content>
+  </template>
+  <script>
+  (function () {
+    Polymer({
+      publish: {
+        permission: {
+          value: 'unknown',
+          reflect: true
+        },
+      },
+
+      created: function () {
+        console.log("Created instance of user-media-permission.");
+        this.tryGetUserMedia(0);
+      },
+
+      tryGetUserMedia: function(timeout) {
+        setTimeout(
+            doGetUserMedia.bind(
+              null,
+              {audio: true, video: true},
+              this.getUserMediaSuccess.bind(this),
+              this.getUserMediaFail.bind(this)),
+        timeout);
+      },
+
+      getUserMediaSuccess: function () {
+        console.log("success");
+        this.permission = 'success';
+      },
+
+      getUserMediaFail: function () {
+        console.log("onfail");
+        this.permission = 'denied';
+        this.tryGetUserMedia(1000);
+      }
+    });
+  }());
+  </script>
+</polymer-element>

@@ -27,12 +27,13 @@ E.g.:
 <polymer-element name="user-media-permission" permission="unknown">
   <template>
     <style>
-      :host([permission=allowed]) ::content > .gum-denied,
-      :host([permission=allowed]) ::content > .gum-unknown,
-      :host([permission=denied]) ::content > .gum-allowed,
-      :host([permission=denied]) ::content > .gum-unknown,
-      :host([permission=unknown]) ::content > .gum-allowed,
-      :host([permission=unknown]) ::content > .gum-denied {
+      :host([permission=allowed]) ::content > * .gum-denied,
+      :host([permission=allowed]) ::content > * .gum-unknown,
+      :host([permission=allowed]) ::content > * .gum-pending,
+      :host([permission=denied]) ::content > * .gum-allowed,
+      :host([permission=denied]) ::content > * .gum-unknown,
+      :host([permission=unknown]) ::content > * .gum-allowed,
+      :host([permission=unknown]) ::content > * .gum-denied {
         visibility: hidden;
       }
     </style>

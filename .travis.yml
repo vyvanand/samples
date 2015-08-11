@@ -28,8 +28,6 @@ before_script:
   - git clone git@github.com:vyvanand/samples.git ~/.grunt-init/sauce
   - mkdir tutorial && cd tutorial
   - grunt-init sauce # press enter when asked
-  - npm install
-
 
 
 script:

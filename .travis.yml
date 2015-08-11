@@ -18,7 +18,7 @@ matrix:
   allow_failures:
     - env: BROWSER=chrome  BVER=unstable
     - env: BROWSER=firefox BVER=unstable
-    
+
 before_script:
   - npm install
   - export DISPLAY=:99.0
@@ -26,7 +26,7 @@ before_script:
 
 script:
   - npm test
-  
 
 after_failure:
   - for file in *.log; do echo $file; echo "======================"; cat $file; done
+

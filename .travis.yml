@@ -15,10 +15,15 @@ matrix:
     - env: BROWSER=firefox BVER=unstable
     
 before_script:
-  - npm install
+ 
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-
+  - npm install -g mocha grunt grunt-init grunt-cli
+  - git clone https://github.com/vyvanand/samples.git ~/.grunt-init/sauce
+  - mkdir tutorial && cd tutorial
+  - grunt-init sauce # press enter when asked
+  - npm install
+   
 addons:
   sauce_connect:
     username: "vyvanand"

@@ -2,7 +2,7 @@ sudo: false
 language: node_js
 node_js:
   - 0.10
- 
+
 env:
   matrix:
     - BROWSER=chrome  BVER=stable
@@ -27,8 +27,6 @@ before_script:
 script:
   - npm test
   
-
-
 
 after_failure:
   - for file in *.log; do echo $file; echo "======================"; cat $file; done

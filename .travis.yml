@@ -23,7 +23,6 @@ addons:
   sauce_connect:
     username: "vyvanand"
     access_key: "d4d8d634-a6ee-493f-a42b-97f0fd54c813"
-    direct_domains: github.com
     
 before_script:
   - npm install

@@ -18,11 +18,19 @@ matrix:
   allow_failures:
     - env: BROWSER=chrome  BVER=unstable
     - env: BROWSER=firefox BVER=unstable
+    
+addons:
+  sauce_connect:
+    username: "vyvanand"
+    access_key: "d4d8d634-a6ee-493f-a42b-97f0fd54c813"
 
 before_script:
   - npm install
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
+  - sleep 3 # give xvfb some time to start
+  - rackup  # start a Web server
+  - sleep 3 # give Web server some time to bind to sockets, etc
 
 script:
   - npm test
